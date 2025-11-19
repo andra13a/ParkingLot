@@ -9,6 +9,7 @@
                 <ul class="navbar-nav me-auto mb-2 mb-md-0">
                     <li class="nav-item"> <a class="nav-link ${pageContext.request.requestURI.substring(pageContext.request.requestURI.lastIndexOf("/"))eq 'about.jsp' ? ' active' : ''}" aria-current="page" href="${pageContext.request.contextPath}/about.jsp">About</a>
                     <li class="nav-item"> <a href="${pageContext.request.contextPath}/Cars" class="nav-link ${activePage eq 'Cars' ? 'active' : ''}">Cars</a>
+                    <li class="nav-item"> <a href="${pageContext.request.contextPath}/Users" class="nav-link ${activePage eq 'Users' ? 'active' : ''}">Users</a></li>
                     <li class="nav-item"> <a class="nav-link" href="#">Link</a></li>
                     <li class="nav-item"> <a class="nav-link disabled" aria-disabled="true">Disabled</a></li>
                 </ul>
