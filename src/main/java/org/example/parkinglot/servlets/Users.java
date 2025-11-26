@@ -5,7 +5,7 @@ import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 import org.example.parkinglot.common.UserDto;
-import org.example.parkinglot.ejb.UserBean;
+import org.example.parkinglot.ejb.UsersBean;
 
 import java.io.IOException;
 import java.util.List;
@@ -14,7 +14,7 @@ import java.util.List;
 public class Users extends HttpServlet {
 
     @Inject
-    UserBean userBean;
+    UsersBean userBean;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws

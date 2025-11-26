@@ -5,9 +5,7 @@ import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
-import org.example.parkinglot.common.CarDto;
 import org.example.parkinglot.common.UserDto;
-import org.example.parkinglot.entities.Car;
 import org.example.parkinglot.entities.User;
 
 import java.util.ArrayList;
@@ -15,8 +13,8 @@ import java.util.List;
 import java.util.logging.Logger;
 
 @Stateless
-public class UserBean {
-    private static final Logger LOG = Logger.getLogger(UserBean.class.getName());
+public class UsersBean {
+    private static final Logger LOG = Logger.getLogger(UsersBean.class.getName());
 
     @PersistenceContext
     EntityManager entityManager;

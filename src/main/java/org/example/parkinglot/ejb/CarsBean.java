@@ -1,5 +1,4 @@
 package org.example.parkinglot.ejb;
-
 import jakarta.ejb.EJBException;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
@@ -7,8 +6,9 @@ import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
 import org.example.parkinglot.common.CarDto;
 import org.example.parkinglot.entities.Car;
-
+import org.example.parkinglot.entities.User;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -30,18 +30,70 @@ public class CarsBean {
             throw new EJBException(ex);
         }
     }
+
+    private CarDto copyCarToDto(Car car) {
+        return new CarDto(
+                car.getId(),
+                car.getLicensePlate(),
+                car.getParkingSpot(),
+                car.getOwner().getUsername()
+        );
+    }
+
     private List<CarDto> copyCarsToDto(List<Car> cars) {
         List<CarDto> dtos = new ArrayList<>();
         for (Car car : cars) {
-            CarDto dto = new CarDto(
-                    car.getId(),
-                    car.getLicensePlate(),
-                    car.getParkingSpot(),
-                    car.getOwner().getUsername()
-            );
-            dtos.add(dto);
+            dtos.add(copyCarToDto(car)); // Refolosirea metodei pentru o singură entitate
         }
         return dtos;
+    }
+
+    public void createCar(String licensePlate, String parkingSpot, Long userId) {
+        LOG.info("createCar");
+
+        Car car = new Car();
+        car.setLicensePlate(licensePlate);
+        car.setParkingSpot(parkingSpot);
+
+        User user = entityManager.find(User.class, userId);
+        user.getCars().add(car);
+        car.setOwner(user);
+
+        entityManager.persist(car);
+    }
+    public CarDto findById(Long carId) {
+        LOG.info("findById");
+        try {
+            Car car = entityManager.find(Car.class, carId);
+            if (car != null) {
+                return copyCarToDto(car);
+            }
+            return null;
+        } catch (Exception ex) {
+            throw new EJBException(ex);
+        }
+    }
+    public void updateCar(Long carId, String licensePlate, String parkingSpot, Long userId) {
+        LOG.info("updateCar");
+
+        Car car = entityManager.find(Car.class, carId);
+        car.setLicensePlate(licensePlate);
+        car.setParkingSpot(parkingSpot);
+
+        User oldUser = car.getOwner();
+        oldUser.getCars().remove(car);
+
+        User user = entityManager.find(User.class, userId);
+        user.getCars().add(car);
+        car.setOwner(user);
+    }
+
+    public void deleteCarsByIds(Collection<Long> carIds) {
+        LOG.info("deleteCarsByIds");
+        for(Long carId : carIds){
+            Car car=entityManager.find(Car.class, carId);
+            entityManager.remove(car);
+        }
     }
 
 }
