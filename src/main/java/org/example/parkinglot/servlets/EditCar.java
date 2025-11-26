@@ -42,7 +42,7 @@ public class EditCar extends HttpServlet {
         Long carId = Long.parseLong(request.getParameter("car_id"));
 
         carsBean.updateCar(carId, licensePlate, parkingSpot, userId);
-        response.sendRedirect(request.getContextPath() + "/ Cars");
+        response.sendRedirect(request.getContextPath() + "/Cars");
     }
 
 }
