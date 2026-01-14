@@ -45,7 +45,7 @@ public class CarsBean {
     private List<CarDto> copyCarsToDto(List<Car> cars) {
         List<CarDto> dtos = new ArrayList<>();
         for (Car car : cars) {
-            dtos.add(copyCarToDto(car)); // Refolosirea metodei pentru o singură entitate
+            dtos.add(copyCarToDto(car));
         }
         return dtos;
     }

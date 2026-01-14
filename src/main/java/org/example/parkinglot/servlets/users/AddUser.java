@@ -1,14 +1,12 @@
-package org.example.parkinglot.servlets;
+package org.example.parkinglot.servlets.users;
 
 import jakarta.inject.Inject;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
-import org.example.parkinglot.ejb.PasswordBean;
 import org.example.parkinglot.ejb.UsersBean;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.Arrays;
 @ServletSecurity(value = @HttpConstraint(rolesAllowed = {"WRITE_USERS"}))
 
@@ -22,7 +20,7 @@ public class AddUser extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws
             ServletException, IOException {
         request.setAttribute("userGroups", new String[] {"READ_CARS", "WRITE_CARS", "READ_USERS", "WRITE_USERS"});
-        request.getRequestDispatcher("/WEB-INF/pages/addUser.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/pages/users/addUser.jsp").forward(request, response);
     }
 
     @Override

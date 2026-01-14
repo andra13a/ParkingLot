@@ -1,4 +1,4 @@
-package org.example.parkinglot.servlets;
+package org.example.parkinglot.servlets.users;
 import jakarta.annotation.security.DeclareRoles;
 import jakarta.inject.Inject;
 import jakarta.servlet.*;
@@ -33,7 +33,7 @@ public class Users extends HttpServlet {
             Collection<String> usernames = userBean.findUsernamesByUserIds(invoiceBean.getUserIds());
             request.setAttribute("invoices", usernames);
         }
-        request.getRequestDispatcher("/WEB-INF/pages/users.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/pages/users/users.jsp").forward(request, response);
     }
 
     @Override
